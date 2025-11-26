@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultora Digital - Soluciones Estratégicas</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <style>
+        /* Definición de Paleta */
+        :root {
+            --color-primary: #1E3A8A; /* Azul Oscuro Corporativo */
+            --color-secondary: #D97706; /* Naranja de Acceento / Éxito */
+            --color-text-dark: #263238;
+            --color-background-page: #f9fafb; /* Fondo muy claro */
+            --shadow-card: 0 6px 20px rgba(38, 50, 56, 0.1);
+            --shadow-hover: 0 12px 30px rgba(38, 50, 56, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Usamos Poppins */
+            background: var(--color-background-page);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+        }
+
+        /* 1. Navbar (Más presencia con color primario) */
+        nav {
+            background-color: var(--color-primary) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        /* 2. Hero Section (Más impactante) */
+        .hero {
+            /* Degradado más profesional sobre la imagen */
+            background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.85)), url('https://picsum.photos/1600/500?random=1') center/cover no-repeat;
+            padding: 140px 0 100px 0; /* Más alto */
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.4);
+        }
+        .hero h2 {
+            font-size: 3.2rem; /* Más grande */
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        /* Botones */
+        .btn-large {
+            background-color: var(--color-secondary) !important; /* Usamos el acento naranja */
+            border-radius: 30px;
+            padding: 0 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
+        }
+        .btn-large:hover, .btn-large:focus {
+            background-color: #B45309 !important; /* Tono más oscuro de naranja */
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        /* Secciones y Títulos */
+        section.section {
+            padding-top: 60px; /* Más padding en secciones */
+            padding-bottom: 60px;
+        }
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--color-secondary);
+            padding-bottom: 8px;
+            display: inline-block;
+            line-height: 1.1;
+        }
+
+        /* 3. Cards de Servicio (Más estéticas) */
+        .card {
+            border-radius: 18px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+        }
+        .card-content {
+            padding: 30px !important;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary); /* Título de tarjeta azul */
+            margin-bottom: 12px;
+        }
+        .material-icons.left {
+            font-size: 2.2rem;
+            color: var(--color-secondary); /* Iconos en color de acento */
+            margin-right: 10px;
+            vertical-align: top;
+        }
+
+        /* Sección Nosotros (Fondo limpio) */
+        .grey.lighten-4 {
+            background-color: #F0F4F8 !important; /* Un gris azulado claro, menos gris plano */
+            border-radius: 24px;
+            padding: 40px 0;
+        }
+
+        /* 4. Contacto (Focus de formulario) */
+        .input-field input:focus, .input-field textarea:focus {
+            border-bottom: 2px solid var(--color-primary) !important;
+            box-shadow: 0 1px 0 0 var(--color-primary) !important;
+        }
+        
+        /* Footer (Ajustado a color primario) */
+        .page-footer {
+            background-color: var(--color-primary) !important;
+            padding-top: 40px;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+        }
+        .page-footer h5 {
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--color-secondary);
+        }
+        .page-footer ul li a:hover {
+            text-decoration: underline;
+            color: #FFECB3 !important; /* Amarillo muy suave al pasar el ratón */
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 80px 0 60px 0;
+                border-radius: 0;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            .section h2 {
+                font-size: 2rem;
+            }
+            .grey.lighten-4, .page-footer {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav role="navigation" aria-label="Menú principal">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo" aria-label="Inicio Consultora Digital">
+                <i class="material-icons left">business_center</i>
+                Consultora Digital
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero center-align" role="banner">
+        <h1 class="hide">Consultora Digital</h1>
+        <h2>Soluciones Digitales que Impulsan tu Negocio</h2>
+        <p>Consultoría estratégica en tecnología, datos e innovación, diseñada a tu medida.</p>
+        <a class="btn-large waves-effect waves-light" href="#contacto">Iniciar Conversación</a>
+    </header>
+
+    <section class="container section" id="servicios" aria-labelledby="servicios-titulo">
+        <h2 class="center-align" id="servicios-titulo">Nuestros Servicios Estratégicos</h2>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left" aria-hidden="true">insights</i>
+                            Análisis de Datos
+                        </span>
+                        <p>Transformamos datos brutos en conocimiento y decisiones estratégicas con herramientas de inteligencia de negocios de última generación.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left" aria-hidden="true">developer_mode</i>
+                            Desarrollo de Software
+                        </span>
+                        <p>Diseñamos y desarrollamos plataformas seguras, escalables y modernas, aplicando las mejores prácticas de ingeniería y experiencia de usuario.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <i class="material-icons left" aria-hidden="true">security</i>
+                            Ciberseguridad
+                        </span>
+                        <p>Evaluamos, fortalecemos y protegemos tu infraestructura digital para mitigar proactivamente los riesgos y asegurar la continuidad operativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section grey lighten-4" id="nosotros" aria-labelledby="nosotros-titulo">
+        <div class="container">
+            <h2 class="center-align" id="nosotros-titulo">Líderes en Transformación Digital</h2>
+            <p class="flow-text center-align">
+                Somos una consultora tecnológica con más de 10 años en el sector. Nuestro **equipo multidisciplinario** está formado por especialistas certificados en software, análisis de datos y seguridad informática, comprometidos con tu crecimiento.
+            </p>
+        </div>
+    </section>
+
+    <section class="container section" id="contacto" aria-labelledby="contacto-titulo">
+        <h2 class="center-align" id="contacto-titulo">Hablemos de tu Proyecto</h2>
+        <form autocomplete="off" novalidate>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input id="nombre" name="nombre" type="text" class="validate" required aria-required="true" autocomplete="name">
+                    <label for="nombre">Nombre Completo</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input id="email" name="email" type="email" class="validate" required aria-required="true" autocomplete="email">
+                    <label for="email">Correo Electrónico Corporativo</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="mensaje" name="mensaje" class="materialize-textarea" required aria-required="true"></textarea>
+                    <label for="mensaje">¿Cómo podemos ayudarte? (Describe tu necesidad)</label>
+                </div>
+                <div class="col s12 center-align">
+                    <button type="submit" class="btn-large waves-effect waves-light">Enviar Consulta</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <footer class="page-footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Consultora Digital</h5>
+                    <p class="grey-text text-lighten-4">
+                        Impulsamos el crecimiento tecnológico y la eficiencia de tu organización con soluciones innovadoras y robustas.
+                    </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Navegación Rápida</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#servicios">Servicios</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#nosotros">Quiénes Somos</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container center-align">
+                © 2025 Consultora Digital. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </body>
+</html>

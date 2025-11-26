@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IdeaBox - Innovación y Colaboración</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <style>
+        /* Variables de Paleta y Elevación */
+        :root {
+            --color-primary: #0288D1; /* light-blue darken-2 */
+            --color-secondary: #E53935; /* red darken-1 */
+            --color-background-page: #F7FAFF; /* Azul Celeste muy suave */
+            --color-background-card: #FFFFFF; 
+            --color-text-dark: #263238; 
+            --color-footer: #0D47A1; 
+            --elevation-low: 0 4px 10px rgba(0,0,0,0.08);
+            --elevation-hover: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-background-page);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5; 
+        }
+        main {
+            flex: 1 0 auto;
+            padding-top: 30px;
+            padding-bottom: 60px;
+        }
+
+        /* ENCABEZADO */
+        nav.top-app-bar {
+            background-color: var(--color-primary) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            height: 64px;
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center; 
+            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600; 
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            color: #FFFFFF;
+        }
+        .app-title i {
+            font-size: 2rem;
+            margin-right: 8px;
+        }
+
+        /* Títulos de Sección */
+        .section-header {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            margin-top: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            border-bottom: 3px solid var(--color-secondary); 
+            display: inline-block; 
+            line-height: 1.1;
+        }
+        
+        /* Cards */
+        .card {
+            border-radius: 16px; 
+            background-color: var(--color-background-card);
+            box-shadow: var(--elevation-low);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            opacity: 0; 
+            transform: translateY(20px);
+            margin-bottom: 30px; 
+        }
+        .card.animated {
+             opacity: 1;
+             transform: translateY(0);
+        }
+        .card:hover {
+            box-shadow: var(--elevation-hover);
+            transform: translateY(-8px); 
+        }
+        .card-content {
+            padding: 30px !important; 
+        }
+
+        /* Formulario Input - Focus */
+        .input-field input[type=text]:focus + label,
+        .input-field textarea:focus + label {
+            color: var(--color-secondary) !important; 
+        }
+        .input-field input[type=text]:focus,
+        .input-field textarea:focus {
+            border-bottom: 1px solid var(--color-secondary) !important;
+            box-shadow: 0 1px 0 0 var(--color-secondary) !important;
+        }
+
+        /* Ideas Recientes (Estilo de Lista) */
+        /* Contenedor para la lista de ideas para la inserción dinámica */
+        #ideas-list-content {
+            /* Asegura que el contenido interno de la card esté bien definido */
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .idea-list-item {
+            margin-bottom: 15px;
+            padding: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px solid #F0F4F7;
+            /* Estilo para nuevas ideas */
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        .new-idea {
+            background-color: rgba(2, 136, 209, 0.05); /* Resalta la idea recién agregada */
+            border-radius: 8px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        .idea-list-item:last-child {
+            border-bottom: none;
+        }
+        .idea-icon-wrap {
+            flex-shrink: 0;
+            margin-right: 15px;
+        }
+        .idea-icon-wrap i {
+            color: var(--color-secondary);
+            font-size: 2.2rem;
+            line-height: 1.2;
+        }
+        .idea-author {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 0px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* FAB */
+        .btn-floating.fab-send {
+            background-color: var(--color-secondary) !important;
+            box-shadow: 0 6px 15px rgba(229, 57, 53, 0.6);
+            bottom: 40px;
+            right: 40px;
+            width: 70px;
+            height: 70px;
+        }
+        .btn-floating.fab-send i {
+            font-size: 3rem;
+            line-height: 70px;
+        }
+
+        /* Footer */
+        .page-footer {
+            background-color: var(--color-footer) !important;
+            color: #E3F2FD;
+            padding-top: 30px;
+            padding-bottom: 10px;
+            margin-top: 60px;
+        }
+
+        /* Toast */
+        .toast.green-darken-2 {
+            background-color: #388E3C !important;
+        }
+        .toast.red-accent-4 {
+            background-color: var(--color-secondary) !important;
+        }
+        .placeholder-line {
+            height: 14px;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #F0F4FF 25%, #E5E9F3 50%, #F0F4FF 75%);
+            background-size: 400% 100%;
+            border-radius: 4px;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-app-bar" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="app-title">
+                <i class="material-icons">lightbulb_outline</i>
+                <span>IdeaBox</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <h2 class="section-header">¡Registra tu Idea!</h2>
+
+                <div class="card z-depth-1" id="form-card">
+                    <div class="card-content">
+                        <span class="card-title" style="font-weight: 600;">
+                            <i class="material-icons left" style="color: var(--color-primary);">edit_note</i>
+                            Detalles del Colaborador
+                        </span>
+                        
+                        <form id="ideaForm" class="row" action="#">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">person</i>
+                                <input id="nombre" type="text" class="validate" required>
+                                <label for="nombre">Tu Nombre</label>
+                            </div>
+                            
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lightbulb_circle</i>
+                                <textarea id="idea" class="materialize-textarea" data-length="500" required></textarea>
+                                <label for="idea">Describe la Idea (Máx. 500 caracteres)</label>
+                            </div>
+                            <button class="btn hide" type="submit" id="submitBtn">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m6 l5 offset-l1">
+                <h2 class="section-header">Últimas Ideas</h2>
+                
+                <div class="card z-depth-1" id="ideas-card">
+                    <div class="card-content" id="ideas-list-content">
+                        
+                        <div class="idea-list-item">
+                            <div class="idea-icon-wrap">
+                                <i class="material-icons">message</i>
+                            </div>
+                            <div class="idea-content-text">
+                                <span class="idea-author">Juan Pérez</span> 
+                                <p class="idea-text">Crear una aplicación web dedicada para la gestión integral de reuniones y tareas asociadas.</p>
+                            </div>
+                        </div>
+
+                        <div class="idea-list-item">
+                            <div class="idea-icon-wrap">
+                                <i class="material-icons">auto_fix_high</i>
+                            </div>
+                            <div class="idea-content-text">
+                                <span class="idea-author">Lucía Gómez</span> 
+                                <p class="idea-text">Integrar funciones de Inteligencia Artificial (IA) en el chatbot de soporte del sitio web.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="idea-list-item placeholder-item">
+                            <div class="idea-icon-wrap">
+                                <i class="material-icons">query_builder</i>
+                            </div>
+                            <div class="idea-content-text">
+                                <span class="idea-author">Cargando Ideas...</span> 
+                                <div class="placeholder-line" style="width: 80%; height: 16px;"></div>
+                                <div class="placeholder-line" style="width: 95%; height: 12px; margin-top: 5px;"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating fab-send waves-effect waves-light tooltipped" data-position="left" data-tooltip="Enviar tu Idea" id="fabSubmit">
+            <i class="material-icons">send</i>
+        </a>
+    </div>
+
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container center-align">
+                © 2025 IdeaBox. Impulsando la innovación.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
+            M.CharacterCounter.init(document.querySelectorAll('textarea'), {});
+
+            // Animación de entrada para las Cards
+            const formCard = document.getElementById('form-card');
+            const ideasCard = document.getElementById('ideas-card');
+            
+            setTimeout(() => {
+                formCard.classList.add('animated');
+                setTimeout(() => {
+                    ideasCard.classList.add('animated');
+                }, 150); 
+            }, 100);
+
+            // ************************************************
+            // LÓGICA DE REGISTRO DE IDEAS DINÁMICO
+            // ************************************************
+            const ideaForm = document.getElementById('ideaForm');
+            const fabSubmit = document.getElementById('fabSubmit');
+            const inputNombre = document.getElementById('nombre');
+            const inputIdea = document.getElementById('idea');
+            const ideasListContainer = document.getElementById('ideas-list-content');
+            const placeholderItem = document.querySelector('.placeholder-item');
+
+            fabSubmit.addEventListener('click', () => {
+                const nombre = inputNombre.value.trim();
+                const idea = inputIdea.value.trim();
+
+                if (nombre === '' || idea === '') {
+                    M.toast({
+                        html: '<i class="material-icons left">error_outline</i> Completa todos los campos para enviar tu idea.',
+                        classes: 'red accent-4'
+                    });
+                    return; // Detiene la función si hay error
+                } 
+                
+                // 1. Crear el nuevo elemento HTML (Nuevo ícono: "new_releases" para destacar)
+                const newIdeaHTML = `
+                    <div class="idea-list-item new-idea">
+                        <div class="idea-icon-wrap">
+                            <i class="material-icons">new_releases</i>
+                        </div>
+                        <div class="idea-content-text">
+                            <span class="idea-author">${nombre}</span> 
+                            <p class="idea-text">${idea}</p>
+                        </div>
+                    </div>
+                `;
+
+                // 2. Insertar la nueva idea al inicio del contenedor (prepend)
+                ideasListContainer.insertAdjacentHTML('afterbegin', newIdeaHTML);
+
+                // 3. Eliminar el placeholder si ya existe una idea
+                if (placeholderItem) {
+                    placeholderItem.remove();
+                }
+
+                // 4. Mostrar el mensaje de éxito (Toast)
+                M.toast({
+                    html: '<i class="material-icons left">check_circle</i> ¡Idea enviada con éxito! La revisaremos pronto.',
+                    classes: 'green darken-2'
+                });
+
+                // 5. Limpiar el formulario y reajustar labels
+                ideaForm.reset();
+                M.updateTextFields(); 
+            });
+            
+            // Prevenir el submit HTML por defecto
+            ideaForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
